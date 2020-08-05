@@ -23,7 +23,6 @@ class _BackdropScreenState extends State<BackdropScreen> {
 
   BackdropScreenViewModel model = serviceLocator<BackdropScreenViewModel>();
 
-
   Future<Result> menu;
 
   @override

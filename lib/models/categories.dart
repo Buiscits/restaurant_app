@@ -2,6 +2,36 @@
 
 import 'dart:convert';
 
+class Item {
+  final String name;
+  final int itemId;
+
+  Item({this.name, this.itemId});
+
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+      name: json['post_title'],
+      itemId: json['ID'],);
+
+  Map<String, dynamic> toJson() => {'post_title': name, 'ID': itemId};
+}
+
+class CategoryItems {
+  final List<Item> items;
+
+  CategoryItems({this.items});
+
+  factory CategoryItems.fromRawJson(String str) =>
+      CategoryItems.fromJson(jsonDecode(str));
+
+  factory CategoryItems.fromJson(List<dynamic> json) => CategoryItems(
+      items: List<Item>.from(
+          json.map((x) => Item(
+              name: x['post_title'],
+              itemId: x['ID']))
+      )
+  );
+}
+
 class Category {
   final int id;
   final String name;
@@ -32,5 +62,4 @@ class Menu {
           name: x['name']))
     )
   );
-
 }
