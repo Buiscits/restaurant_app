@@ -19,13 +19,13 @@ class MenuClient {
 
   MenuClient(this._client);
 
-  Future<Response> request({@required RequestType requestType, @required String path, dynamic parameter = Nothing}) async {
+  Future<Response> request({@required RequestType requestType, String cookie, @required String path, dynamic parameter = Nothing}) async {
     switch(requestType) {
       case RequestType.GET:
-        return _client.get("$_baseUrl/$path");
+        return cookie != '' ? _client.get("$_baseUrl/$path", headers: {'cookie': cookie}) : _client.get("$_baseUrl/$path");
       case RequestType.POST:
         return _client.post("$_baseUrl/$path",
-            headers: {"Content-Type": "application/json"}, body: json.encode(parameter));
+            headers: {"Content-Type": "application/json", "cookie": cookie}, body: json.encode(parameter));
       case RequestType.DELETE:
         return _client.delete("$_baseUrl/$path");
       default:

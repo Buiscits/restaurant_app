@@ -44,7 +44,7 @@ class Category {
     name: json['name'],
     img: json['image']);
 
-  Map<String, dynamic> toJson() => {'term_id': id, 'name': name};
+  Map<String, dynamic> toJson() => {'term_id': id, 'name': name, 'image': img};
 }
 
 class Menu {
@@ -59,7 +59,8 @@ class Menu {
     categories: List<Category>.from(
         json.map((x) => Category(
           id: x['term_id'],
-          name: x['name']))
+          name: x['name'],
+          img: x['image']))
     )
   );
 }

@@ -7,6 +7,8 @@ import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
 
+import 'cart_screen.dart';
+
 class CategoryScreen extends StatefulWidget {
 
   final Category category;
@@ -26,11 +28,27 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   _categoryScreenState(this.category);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(category.name),
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20),
+            child: GestureDetector(
+              child: Icon(Icons.shopping_basket),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CartScreen()
+                    ));
+              },
+            ),
+          )
+        ],
       ),
       body: FutureBuilder(
           future: model.getItemsInCategory(category.id),
@@ -59,21 +77,61 @@ class _categoryScreenState extends State<CategoryScreen> {
         itemCount: items.length,
         itemBuilder: (context, index) => Container(
           padding: EdgeInsets.all(2),
-          child: Card(
-              child: new InkWell(
-                child: Center(
-                  child: Text(items[index].name, style: TextStyle(fontSize: 20),),
-                  heightFactor: 3,
-                ),
-                onTap: () {
-                  //model.selectedCategoryIndex = index;
-                  //Backdrop.of(context).fling();
+          child: Center(
+            child: _itemCard(context, items[index]),
+          )
+        )
+    );
+  }
+
+  Widget _itemCard(BuildContext context, Item item) {
+    return Card(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+
+        Column(
+          children: <Widget>[
+            Text(item.name),
+            Text('Description')
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Text('Price'),
+            Text('x2'),
+          ],
+        ),
+
+
+        Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  model.addItemToCart(item.itemId);
                 },
+              ),
 
-              )
+              IconButton(
+                icon: Icon(Icons.remove),
+              ),
 
+            ],
           ),
         )
+
+
+
+
+
+      ],
+      ),
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:resturant_website_app/services/resturant_data.dart';
 import 'package:resturant_website_app/services/resturant_data_fake.dart';
 import 'package:resturant_website_app/view_models/backdrop_screen_view_model.dart';
+import 'package:resturant_website_app/view_models/cart_screen_view_model.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
 
@@ -16,4 +17,5 @@ void setUpServiceLocator() {
 
   serviceLocator.registerFactory<MenuScreenViewModel>(() => MenuScreenViewModel());
   serviceLocator.registerFactory<CategoryScreenViewModel>(() => CategoryScreenViewModel());
+  serviceLocator.registerFactory<CartScreenViewModel>(() => CartScreenViewModel());
 }

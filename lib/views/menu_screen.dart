@@ -7,6 +7,7 @@ import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
+import 'package:resturant_website_app/views/cart_screen.dart';
 import 'package:resturant_website_app/views/category_screen.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -24,6 +25,21 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Menu'),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                child: Icon(Icons.shopping_basket),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartScreen()
+                      ));
+                },
+              ),
+            )
+          ],
         ),
         body: FutureBuilder(
             future: model.getMenu(),
@@ -50,6 +66,7 @@ class _MenuScreenState extends State<MenuScreen> {
         child: GridView.count(
             crossAxisCount: 2,
             children:List.generate(model.categories.length, (index) {
+
               return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -60,15 +77,43 @@ class _MenuScreenState extends State<MenuScreen> {
                   },
                   child: Card(
                       child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
+
+
                             Center(
-                              child: Text(model.categories[index].name,style: TextStyle(fontSize: 20),),
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 5, left: 10, right: 10, top: 10),
+                                child: Text(model.categories[index].name,style: TextStyle(fontSize: 24),),
+                              )
+                            ),
+
+                            AspectRatio(
+                              aspectRatio: 3/2,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child:  ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: _categoryImage(context, model.categories[index].img),
+                                )
                             )
+
+                            )
+
                           ]
                       )
                   ));
             })
         ));
+  }
+
+  Widget _categoryImage(BuildContext context, dynamic imgString) {
+    if (imgString != null) {
+      return Image.network(imgString);
+    } else {
+      return SizedBox.shrink();
+    }
   }
 
 }
