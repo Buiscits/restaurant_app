@@ -18,7 +18,10 @@ class Cart {
       items: List<Item>.from(
           json['cart_items'].map((item) => Item(
               name: item['post_title'],
-              itemId: item['ID']))
+              itemId: item['ID'],
+              price: double.parse(item['price'][0]),
+              quantity: item['quantity']
+          ))
       )
   );
 

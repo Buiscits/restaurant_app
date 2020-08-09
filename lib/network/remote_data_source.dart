@@ -50,7 +50,7 @@ class RemoteDataSource {
         return Result.error('Failed to get menu json');
       }
     } catch (error) {
-      return Result.error('Something went wrong when requesting Menu');
+      return Result.error('Something went wrong when requesting Category Items');
     }
   }
 
@@ -75,8 +75,11 @@ class RemoteDataSource {
           requestType: RequestType.POST, path: "cart", cookie: this.sessionCookie, parameter: {"item_id": id});
       if (response.statusCode == 200) {
         //3
+
         print('Added');
         //print(response.headers[]);
+
+
 
       } else {
         print('Else');

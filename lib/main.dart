@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       home: BackdropScreen(),
     );
   }
-
 }
 
  */
@@ -26,8 +25,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //home: MenuScreen(),
-      home: CheckoutScreen()
+      home: MenuScreen(),
+      //home: CheckoutScreen()
     );
   }
 }

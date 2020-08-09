@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
+import 'package:resturant_website_app/models/checkout.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/cart_screen_view_model.dart';
+import 'package:resturant_website_app/views/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -17,27 +19,55 @@ class _cartScreenState extends State<CartScreen> {
 
   CartScreenViewModel model = serviceLocator<CartScreenViewModel>();
 
+  Future<Result<dynamic>> cart;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cart = model.getCart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Basket'),
       ),
+
       body: FutureBuilder(
-        future: model.getCart(),
+        future: cart,
         builder: (context, snapshot) {
           if (snapshot.data is SuccessState) {
 
-            Cart cart = (snapshot.data as SuccessState).value;
+            List<Item> items = ((snapshot.data as SuccessState).value as Cart).items;
 
-            return cart.items.isEmpty ? Center(child: Text('The cart is empty'))
-                                      : _itemsList(context, cart);
+            if (items.isNotEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+
+                    Expanded(
+                      child: _itemsList(context, items),
+                    ),
+
+                  ],
+                ),
+              );
+            } else {
+              return Center(
+                child: Text('The cart is empty'),
+              );
+            }
 
           } else if (snapshot.data is ErrorState) {
+
             String errorMessage = (snapshot.data as ErrorState).msg;
             return Center(
                 child: Text(errorMessage)
             );
+            
           } else {
             return Center(
               child: CircularProgressIndicator(),
@@ -48,21 +78,50 @@ class _cartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _itemsList(BuildContext context, Cart cart) {
-    List<Item> items = cart.items;
-    return ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) => Container(
-            padding: EdgeInsets.all(2),
-            child: Center(
-              child: _itemCard(context, items[index]),
-            )
+  Widget _itemsList(BuildContext context, List<Item> items) {
+
+    return Column(
+      children: <Widget>[
+
+        Expanded(
+          child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) => Container(
+                  padding: EdgeInsets.all(2),
+                  child: Center(
+                    child: _itemCard(context, items[index]),
+                  )
+              )
+          ),
+        ),
+
+
+        Padding(
+          padding: EdgeInsets.only(bottom: 12),
+          child: RaisedButton(
+            child: Text('Proceed to checkout'),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CheckoutScreen()
+                  )
+              );
+            },
+          ),
         )
+
+      ],
+
+
     );
+
+
   }
 
   Widget _itemCard(BuildContext context, Item item) {
     return Card(
+      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -76,8 +135,11 @@ class _cartScreenState extends State<CartScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Text('Price'),
-              Text('x2'),
+              Text('£ ' + '${item.price.toStringAsFixed(2)}'),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text('(${item.quantity})'),
+              )
             ],
           ),
 
@@ -91,7 +153,15 @@ class _cartScreenState extends State<CartScreen> {
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    //model.addItemToCart(item.itemId);
+                    model.addItemToCart(item.itemId);
+                    
+                    Future.delayed(Duration(seconds: 5), () {
+                      setState(() {
+                        cart = model.getCart();
+                      });
+                    });
+                    
+
                   },
                 ),
 

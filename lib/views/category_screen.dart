@@ -86,6 +86,7 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   Widget _itemCard(BuildContext context, Item item) {
     return Card(
+      margin: EdgeInsets.only(right: 10, left: 10, top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -99,8 +100,8 @@ class _categoryScreenState extends State<CategoryScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text('Price'),
-            Text('x2'),
+            Text('£ ${item.price.toStringAsFixed(2)}'),
+            //Text('x2'),
           ],
         ),
 
