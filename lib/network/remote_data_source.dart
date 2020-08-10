@@ -60,7 +60,7 @@ class RemoteDataSource {
       if (response.statusCode == 200) {
         return Result<Cart>.success(Cart.fromRawJson(response.body));
       } else {
-        return Result.error('Failed to get menu json');
+        return Result.error('Failed to get cart json');
       }
     } catch (error) {
       return Result.error('Something went wrong when requesting Cart');

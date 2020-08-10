@@ -3,6 +3,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
@@ -20,6 +21,32 @@ class _MenuScreenState extends State<MenuScreen> {
 
   MenuScreenViewModel model = serviceLocator<MenuScreenViewModel>();
 
+  int totalItemQuantity = 0;
+  double totalItemPrice = 0.0;
+
+  void waitForCart() async {
+    var result = await model.getCart().then((value) => () {
+      if (value is SuccessState) {
+        Cart cart = ((value as SuccessState).value) as Cart;
+        setState(() {
+          this.totalItemQuantity = cart.totalItemCount;
+          this.totalItemPrice = cart.totalItemPrice;
+        });
+
+      } else {
+        print('errro');
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //waitForCart();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +56,42 @@ class _MenuScreenState extends State<MenuScreen> {
             Padding(
               padding: EdgeInsets.only(right: 20),
               child: GestureDetector(
-                child: Icon(Icons.shopping_basket),
+
+                child: Row(
+                  children: <Widget>[
+
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text('£ ${this.totalItemPrice}'),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text('(${this.totalItemQuantity})'),
+                    ),
+
+                    Icon(Icons.shopping_basket),
+
+
+
+                  ],
+                ),
+
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CartScreen()
-                      ));
+                          builder: (context) => CartScreen()
+                      )).then((value) => () {
+                        //waitForCart();
+                  });
                 },
               ),
-            )
+            ),
+
           ],
         ),
+
         body: FutureBuilder(
             future: model.getMenu(),
             builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {

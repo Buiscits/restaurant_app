@@ -8,14 +8,14 @@ import 'package:resturant_website_app/models/categories.dart';
 class Cart {
 
   List<Item> items;
-  int totalItemPrice;
+  double totalItemPrice;
   int totalItemCount;
 
   Cart({this.items, this.totalItemPrice, this.totalItemCount});
 
   factory Cart.fromRawJson(String str) => 
       Cart.fromJson(jsonDecode(str));
-
+  
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
       items: List<Item>.from(
@@ -27,7 +27,7 @@ class Cart {
           ))
       ),
 
-      totalItemPrice: json['cart_total'],
+      totalItemPrice: (json['cart_total'] as double),
       totalItemCount: json['cart_quantity']
   );
 
