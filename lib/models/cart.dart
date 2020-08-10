@@ -6,9 +6,12 @@ import 'dart:convert';
 import 'package:resturant_website_app/models/categories.dart';
 
 class Cart {
-  List<Item> items;
 
-  Cart({this.items});
+  List<Item> items;
+  int totalItemPrice;
+  int totalItemCount;
+
+  Cart({this.items, this.totalItemPrice, this.totalItemCount});
 
   factory Cart.fromRawJson(String str) => 
       Cart.fromJson(jsonDecode(str));
@@ -22,7 +25,10 @@ class Cart {
               price: double.parse(item['price'][0]),
               quantity: item['quantity']
           ))
-      )
+      ),
+
+      totalItemPrice: json['cart_total'],
+      totalItemCount: json['cart_quantity']
   );
 
 }
