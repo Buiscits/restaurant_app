@@ -88,4 +88,25 @@ class RemoteDataSource {
       print('error');
     }
   }
+
+  void checkout(Map<String, dynamic> data) async {
+    try {
+      //2
+      final response = await client.request(
+          requestType: RequestType.FORM_POST, path: "cart/checkout", cookie: this.sessionCookie, parameter: data);
+      if (response.statusCode == 200) {
+        //3
+
+        print('Checkout');
+        //print(response.headers[]);
+
+
+
+      } else {
+        print('Else');
+      }
+    } catch (error) {
+      print('error');
+    }
+  }
 }

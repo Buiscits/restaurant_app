@@ -1,3 +1,3 @@
 
 
-enum RequestType { GET, POST, DELETE }
+enum RequestType { GET, POST, DELETE, FORM_POST }

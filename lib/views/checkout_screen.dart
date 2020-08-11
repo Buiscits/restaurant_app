@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/checkout.dart';
+import 'package:resturant_website_app/view_models/checkout_screen_view_model.dart';
 import 'package:resturant_website_app/views/checkout_completed_screen.dart';
 import 'package:resturant_website_app/widgets/my_text_form_field.dart';
 import 'package:validators/validators.dart' as validator;
@@ -15,6 +16,15 @@ class CheckoutScreen extends StatefulWidget {
 class _checkoutScreenState extends State<CheckoutScreen> {
 
   final _formKey = GlobalKey<FormState>();
+
+  var model = CheckoutScreenViewModel();
+
+  String tableNumber = '';
+  String name = '';
+  String surname = '';
+  String email = '';
+  String customerNotes = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 return null;
               },
               onSaved: (String value) {
-
+                this.tableNumber = value;
               },
             ),
 
@@ -64,7 +74,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                         return null;
                       },
                       onSaved: (String value) {
-                        return null;
+                        this.name = value;
                       },
                     ),
                   ),
@@ -79,7 +89,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                         return null;
                       },
                       onSaved: (String value) {
-                        return null;
+                        this.surname = value;
                       },
                     ),
                   )
@@ -99,8 +109,9 @@ class _checkoutScreenState extends State<CheckoutScreen> {
 
                 return null;
               },
-              onSaved: (String value) {
 
+              onSaved: (String value) {
+                this.email = value;
               },
             ),
 
@@ -112,8 +123,9 @@ class _checkoutScreenState extends State<CheckoutScreen> {
               validator: (String value) {
                 return null;
               },
-              onSaved: (String value) {
 
+              onSaved: (String value) {
+                this.customerNotes = value;
               },
             ),
 
@@ -130,7 +142,13 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CheckoutCompletedScreen(model: Checkout(customerNotes: 'a', email: 'r', name: 'n', surname: 's', tableNumber: 't'),)
+                            builder: (context) {
+
+                              var checkout = Checkout(customerNotes: this.customerNotes, email: this.email, name: this.name, surname: this.surname, tableNumber: this.tableNumber);
+
+                              model.checkout(checkout);
+                              return CheckoutCompletedScreen(model: checkout);
+                            }
                           ));
                     }
                   },
