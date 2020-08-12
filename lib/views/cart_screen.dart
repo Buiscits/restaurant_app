@@ -126,12 +126,15 @@ class _cartScreenState extends State<CartScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
 
-          Column(
-            children: <Widget>[
-              Text(item.name),
-              Text('Description')
-            ],
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Column(
+              children: <Widget>[
+                Text(item.name),
+              ],
+            ),
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -158,6 +161,7 @@ class _cartScreenState extends State<CartScreen> {
                       if (success) {
                         setState(() {
                           cart = model.getCart();
+                          
                         });
                       }
                     };

@@ -91,12 +91,15 @@ class _categoryScreenState extends State<CategoryScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
 
-        Column(
-          children: <Widget>[
-            Text(item.name),
-            Text('Description')
-          ],
-        ),
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Column(
+              children: <Widget>[
+                Text(item.name),
+              ],
+            ),
+          ),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
