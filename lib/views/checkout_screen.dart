@@ -20,7 +20,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
 
   var model = CheckoutScreenViewModel();
 
-  String tableNumber = '';
+  int tableNumber = 0;
   String name = '';
   String surname = '';
   String email = '';
@@ -43,6 +43,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
         child: Column(
           children: <Widget>[
 
+            /*
             MyTextFormField(
               hintText: 'Table Number',
               isEmail: false,
@@ -54,8 +55,40 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 return null;
               },
               onSaved: (String value) {
-                this.tableNumber = value;
+                this.tableNumber = value.toString();
               },
+            ),
+
+             */
+
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: DropdownButtonFormField<int>(
+                hint: Text('Table Number'),
+                //value: this.tableNumber,
+                onChanged: (value) {
+                  this.tableNumber = value;
+                },
+
+                items: List.generate(10, (index) {
+                  return DropdownMenuItem<int>(
+                    value: index + 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text((index + 1).toString()),
+                    ),
+                  );
+                }),
+
+                validator: (value) {
+                  return null;
+                },
+
+
+                onSaved: (value) {
+                  this.tableNumber = value;
+                },
+              ),
             ),
 
             Container(
@@ -144,7 +177,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                           email: this.email,
                           name: this.name,
                           surname: this.surname,
-                          tableNumber: this.tableNumber);
+                          tableNumber: '${this.tableNumber}');
 
                       var completion = (CheckoutCompleted completedCheckout) {
                         if (completedCheckout != null) {
