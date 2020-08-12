@@ -13,17 +13,7 @@ class CheckoutScreenViewModel extends ChangeNotifier {
 
   void checkout(Checkout checkout, Function completion) async {
 
-    var data = {
-      'table_number': checkout.tableNumber,
-      'mprm_email': checkout.email,
-      'mprm_first': checkout.name,
-      'mprm_last': checkout.surname,
-      'customer_note': checkout.customerNotes,
-      'mprm_action': 'purchase',
-      'mprm-gateway': 'manual',
-    };
-
-    var result = _apiResponse.checkout(data).then((value) {
+    var result = _apiResponse.checkout(checkout.toJson()).then((value) {
       if (value is SuccessState) {
         CheckoutCompleted completedCheckout = (value as SuccessState).value;
 
