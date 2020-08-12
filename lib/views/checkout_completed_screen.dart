@@ -16,8 +16,27 @@ class CheckoutCompletedScreen extends StatelessWidget {
         title: Text('You Order has been placed'),
       ),
 
-      body: Text('comple')
+      body: model != null ? _buildModelContents(context)
+                          : _buildModelContentsNull(context)
     );
+  }
+
+  Widget _buildModelContents(BuildContext context) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Text('Table Number: ${model.tableNumber}'),
+          Text('Date: ${model.date}'),
+          Text('Total: £${model.subtotal.toStringAsFixed(2)}'),
+          Text('Order Number: ${model.orderNumber}'),
+
+        ],
+      ),
+    );
+  }
+
+  Widget _buildModelContentsNull(BuildContext context) {
+    return Text('Sorry not able to place order');
   }
 
 

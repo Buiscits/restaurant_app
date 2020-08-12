@@ -20,7 +20,7 @@ class CheckoutCompleted {
 
   factory CheckoutCompleted.fromJson(Map<String, dynamic> json) => CheckoutCompleted(
 
-    orderNumber: json['orderNumber'],
+    orderNumber: json['order_number'],
     date: json['date'],
     subtotal: json['subtotal'],
     tableNumber: json['table_number']
