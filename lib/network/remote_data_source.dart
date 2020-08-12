@@ -89,7 +89,7 @@ class RemoteDataSource {
     }
   }
 
-  void checkout(Map<String, dynamic> data) async {
+  void checkout(Map<String, dynamic> data, Function callback) async {
     try {
       //2
       final response = await client.request(
@@ -99,7 +99,6 @@ class RemoteDataSource {
 
         print('Checkout');
         //print(response.headers[]);
-
 
 
       } else {

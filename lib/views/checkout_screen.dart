@@ -139,17 +139,25 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
+                      var checkout = Checkout(customerNotes: this.customerNotes,
+                          email: this.email,
+                          name: this.name,
+                          surname: this.surname,
+                          tableNumber: this.tableNumber);
 
-                              var checkout = Checkout(customerNotes: this.customerNotes, email: this.email, name: this.name, surname: this.surname, tableNumber: this.tableNumber);
+                      var completion = (bool success) {
+                        if (success) {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) =>
+                                  CheckoutCompletedScreen(model: checkout)));
+                        } else {
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) =>
+                                  CheckoutCompletedScreen(model: null)));
+                        }
+                      };
 
-                              model.checkout(checkout);
-                              return CheckoutCompletedScreen(model: checkout);
-                            }
-                          ));
+                      model.checkout(checkout, completion);
                     }
                   },
                 ),

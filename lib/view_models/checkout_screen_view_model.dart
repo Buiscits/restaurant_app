@@ -10,7 +10,7 @@ class CheckoutScreenViewModel extends ChangeNotifier {
   RemoteDataSource _apiResponse = RemoteDataSource();
 
 
-  void checkout(Checkout checkout) async {
+  void checkout(Checkout checkout, Function completion) async {
 
     var data = {
       'table_number': checkout.tableNumber,
@@ -22,6 +22,10 @@ class CheckoutScreenViewModel extends ChangeNotifier {
       'mprm-gateway': 'manual',
     };
 
-    return _apiResponse.checkout(data);
+    var callback = () {
+
+    };
+
+    return _apiResponse.checkout(data, callback);
   }
 }
