@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
+import 'package:resturant_website_app/models/chekout_completed.dart';
 import 'package:resturant_website_app/models/network_response.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/network/menu_client.dart';
@@ -89,17 +90,15 @@ class RemoteDataSource {
     }
   }
 
-  void checkout(Map<String, dynamic> data, Function callback) async {
+  Future<Result> checkout(Map<String, dynamic> data) async {
     try {
       //2
       final response = await client.request(
           requestType: RequestType.FORM_POST, path: "cart/checkout", cookie: this.sessionCookie, parameter: data);
       if (response.statusCode == 200) {
-        //3
 
-        print('Checkout');
-        //print(response.headers[]);
-
+        print('200');
+        return Result<CheckoutCompleted>.success(CheckoutCompleted.fromRawJson(response.body));
 
       } else {
         print('Else');

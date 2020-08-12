@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/checkout.dart';
+import 'package:resturant_website_app/models/chekout_completed.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/network/remote_data_source.dart';
 
@@ -22,10 +23,17 @@ class CheckoutScreenViewModel extends ChangeNotifier {
       'mprm-gateway': 'manual',
     };
 
-    var callback = () {
+    var result = _apiResponse.checkout(data).then((value) {
+      if (value is SuccessState) {
+        CheckoutCompleted completedCheckout = (value as SuccessState).value;
 
-    };
+        completion(completedCheckout);
 
-    return _apiResponse.checkout(data, callback);
+      } else {
+        completion(null);
+      }
+    }) ;
+
+
   }
 }

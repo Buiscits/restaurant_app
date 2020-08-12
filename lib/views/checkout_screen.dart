@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/checkout.dart';
+import 'package:resturant_website_app/models/chekout_completed.dart';
 import 'package:resturant_website_app/view_models/checkout_screen_view_model.dart';
 import 'package:resturant_website_app/views/checkout_completed_screen.dart';
 import 'package:resturant_website_app/widgets/my_text_form_field.dart';
@@ -145,11 +146,11 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                           surname: this.surname,
                           tableNumber: this.tableNumber);
 
-                      var completion = (bool success) {
-                        if (success) {
+                      var completion = (CheckoutCompleted completedCheckout) {
+                        if (completedCheckout != null) {
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) =>
-                                  CheckoutCompletedScreen(model: checkout)));
+                                  CheckoutCompletedScreen(model: completedCheckout)));
                         } else {
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) =>

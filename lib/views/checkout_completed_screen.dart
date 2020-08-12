@@ -3,10 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/checkout.dart';
+import 'package:resturant_website_app/models/chekout_completed.dart';
 
 class CheckoutCompletedScreen extends StatelessWidget {
 
-  Checkout model;
+  CheckoutCompleted model;
   CheckoutCompletedScreen({this.model});
   @override
   Widget build(BuildContext context) {
@@ -15,13 +16,7 @@ class CheckoutCompletedScreen extends StatelessWidget {
         title: Text('You Order has been placed'),
       ),
 
-      body: ListView.builder(
-        itemCount: model.elements().length,
-        itemBuilder: (context, index) {
-          return Text(this.model.elements()[index]);
-        },
-
-      ),
+      body: Text('comple')
     );
   }
 
