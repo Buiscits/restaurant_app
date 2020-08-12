@@ -12,7 +12,11 @@ class CartScreenViewModel extends ChangeNotifier {
     return _apiResponse.getCart();
   }
 
-  void addItemToCart(int id) async {
-    return _apiResponse.addItemToCart(id);
+  void addItemToCart(int id, Function completion) async {
+    return _apiResponse.addItemToCart(id).then((value) {
+      if (value is SuccessState) {
+        completion(true);
+      }
+    });
   }
 }

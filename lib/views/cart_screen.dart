@@ -153,14 +153,24 @@ class _cartScreenState extends State<CartScreen> {
                 IconButton(
                   icon: Icon(Icons.add),
                   onPressed: () {
-                    model.addItemToCart(item.itemId);
-                    
+
+                    var completion = (bool success) {
+                      if (success) {
+                        setState(() {
+                          cart = model.getCart();
+                        });
+                      }
+                    };
+
+                    model.addItemToCart(item.itemId, completion);
+
+                    /*
                     Future.delayed(Duration(seconds: 5), () {
                       setState(() {
                         cart = model.getCart();
                       });
                     });
-                    
+                    */
 
                   },
                 ),

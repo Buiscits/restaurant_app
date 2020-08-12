@@ -68,7 +68,7 @@ class RemoteDataSource {
     }
   }
 
-  void addItemToCart(int id) async {
+  Future<Result> addItemToCart(int id) async {
 
     try {
       //2
@@ -76,6 +76,8 @@ class RemoteDataSource {
           requestType: RequestType.POST, path: "cart", cookie: this.sessionCookie, parameter: {"item_id": id});
       if (response.statusCode == 200) {
         //3
+
+        return Result<Cart>.success(Cart.fromRawJson(response.body));
 
         print('Added');
         //print(response.headers[]);
