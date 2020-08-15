@@ -119,13 +119,12 @@ class _categoryScreenState extends State<CategoryScreen> {
                 icon: Icon(Icons.add),
                 onPressed: () {
 
-                  final snackbar = SnackBar(content: Text('${item.name} added to basket'));
+                  final snackBar = SnackBar(content: Text('${item.name} added to basket'));
 
                   var completion = () {
                     Scaffold.of(context).hideCurrentSnackBar();
-                    Scaffold.of(context).showSnackBar(snackbar);
+                    Scaffold.of(context).showSnackBar(snackBar);
                   };
-
 
                   model.addItemToCart(item.itemId, completion);
                 },
