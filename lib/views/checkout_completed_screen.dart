@@ -23,16 +23,29 @@ class CheckoutCompletedScreen extends StatelessWidget {
 
   Widget _buildModelContents(BuildContext context) {
     return Center(
-      child: Column(
-        children: <Widget>[
-          Text('Table Number: ${model.tableNumber}'),
-          Text('Date: ${model.date}'),
-          Text('Total: £${model.subtotal.toStringAsFixed(2)}'),
-          Text('Order Number: ${model.orderNumber}'),
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text('Table Number: ${model.tableNumber}', style: TextStyle(fontSize: 20),),
+            Text('Date: ${model.date}'),
+            Text('Total: £${model.subtotal.toStringAsFixed(2)}'),
+            Text('Order Number: ${model.orderNumber}'),
 
-        ],
-      ),
-    );
+            Flexible(
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Text('Items'),
+                  );
+                },
+              ),
+            )
+          ],
+          ),
+        ),
+      );
   }
 
   Widget _buildModelContentsNull(BuildContext context) {
