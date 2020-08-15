@@ -79,16 +79,11 @@ class RemoteDataSource {
 
         return Result<Cart>.success(Cart.fromRawJson(response.body));
 
-        print('Added');
-        //print(response.headers[]);
-
-
-
       } else {
-        print('Else');
+        return Result.error('Failed to add item');
       }
     } catch (error) {
-      print('error');
+      return Result.error('Failed requesting cart after adding item');
     }
   }
 
@@ -98,15 +93,15 @@ class RemoteDataSource {
       final response = await client.request(
           requestType: RequestType.FORM_POST, path: "cart/checkout", cookie: this.sessionCookie, parameter: data);
       if (response.statusCode == 200) {
-
+        var a = response.body;
         print('200');
         return Result<CheckoutCompleted>.success(CheckoutCompleted.fromRawJson(response.body));
 
       } else {
-        print('Else');
+        return Result.error('Failed getting checkout');
       }
     } catch (error) {
-      print('error');
+      return Result.error('Something went wrong getting checkout callback');
     }
   }
 }

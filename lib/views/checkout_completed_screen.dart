@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/checkout.dart';
 import 'package:resturant_website_app/models/chekout_completed.dart';
 
@@ -34,10 +35,10 @@ class CheckoutCompletedScreen extends StatelessWidget {
 
             Flexible(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: model.items.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    child: Text('Items'),
+                    child: _buildItemCard(context, model.items[index]),
                   );
                 },
               ),
@@ -50,6 +51,12 @@ class CheckoutCompletedScreen extends StatelessWidget {
 
   Widget _buildModelContentsNull(BuildContext context) {
     return Text('Sorry not able to place order');
+  }
+
+  Widget _buildItemCard(BuildContext context, Item item) {
+    return ListTile(
+        title: Text('${item.name}')
+    );
   }
 
 

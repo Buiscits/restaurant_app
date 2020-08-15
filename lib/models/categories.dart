@@ -17,7 +17,7 @@ class Item {
       price: double.parse(json['price'][0]),
       quantity: 1);
 
-  Map<String, dynamic> toJson() => {'post_title': name, 'ID': itemId, 'price': ['$price'], 'quantity': quantity};
+  //Map<String, dynamic> toJson() => {'post_title': name, 'ID': itemId, 'price': ['$price'], 'quantity': quantity};
 }
 
 class CategoryItems {

@@ -11,29 +11,27 @@ class CheckoutCompleted {
   final double subtotal;
   final String tableNumber;
 
-  //final List<Item> items;
+  final List<Item> items;
 
-  CheckoutCompleted({this.orderNumber, this.date, this.subtotal, this.tableNumber});//, this.items});
+  CheckoutCompleted({this.orderNumber, this.date, this.subtotal, this.tableNumber, this.items});
 
   factory CheckoutCompleted.fromRawJson(String str) =>
       CheckoutCompleted.fromJson(jsonDecode(str));
 
   factory CheckoutCompleted.fromJson(Map<String, dynamic> json) => CheckoutCompleted(
 
-    orderNumber: json['order_number'],
-    date: json['date'],
-    subtotal: json['subtotal'],
-    tableNumber: json['table_number']
+      orderNumber: json['order_number'],
+      date: json['date'],
+      subtotal: json['subtotal'].toDouble(),
+      tableNumber: json['table_number'],
+     items: List<Item>.from(
+         json['items'].map((x) => Item(
+             name: x['name'],
+             itemId: x['id'],
+             price: x['price'].toDouble(),
+             quantity: x['quantity']
+         ))
+     ),
 
-    /*
-      items: List<Item>.from(
-          json.map((x) => Item(
-              name: x['post_title'],
-              itemId: x['ID'],
-              price: double.parse(x['price'][0]),
-              quantity: 1))
-      )
-
-     */
   );
 }
