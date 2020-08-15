@@ -161,20 +161,11 @@ class _cartScreenState extends State<CartScreen> {
                       if (success) {
                         setState(() {
                           cart = model.getCart();
-                          
                         });
                       }
                     };
 
                     model.addItemToCart(item.itemId, completion);
-
-                    /*
-                    Future.delayed(Duration(seconds: 5), () {
-                      setState(() {
-                        cart = model.getCart();
-                      });
-                    });
-                    */
 
                   },
                 ),
