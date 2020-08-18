@@ -10,6 +10,7 @@ import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
 import 'package:resturant_website_app/views/cart_screen.dart';
 import 'package:resturant_website_app/views/category_screen.dart';
+import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 class MenuScreen extends StatefulWidget {
   @override
@@ -45,10 +46,60 @@ class _MenuScreenState extends State<MenuScreen> {
     //waitForCart();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Future.wait([model.getCart(), model.getMenu(),]),
+
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+
+        if (snapshot.data[0] is SuccessState && snapshot.data[1] is SuccessState) {
+          var cart = (snapshot.data[0] as SuccessState).value;
+          Menu menu = (snapshot.data[1] as SuccessState).value;
+
+          return Scaffold(
+            appBar: MyAppBar((context), 'Menu', cart),
+            body: _menuGrid(context, menu),
+          );
+
+
+        } else if (snapshot.data[0] is ErrorState && snapshot.data[1] is ErrorState) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Menu'),
+            ),
+
+            body: Center(
+              child: Text('A problem occurred and page could not be loaded'),
+            ),
+          );
+
+        } else {
+          return Scaffold(
+              appBar: AppBar(),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ));
+        }
 
 
 
+        /*
+        return Scaffold(
+          appBar: (snapshot.data[0].data is SuccessState) ? MyAppBar(context, 'Menu', (snapshot.data[0] as SuccessState).value as Cart)
+                                                          : AppBar(title: Text('Menu'),),
+          body: Text('body'),
+        );
 
+         */
+      },
+
+
+    );
+  }
+
+
+/*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +165,8 @@ class _MenuScreenState extends State<MenuScreen> {
       );
   }
 
+ */
+
   Widget _menuGrid(BuildContext context, Menu model) {
     return Center(
         child: GridView.count(
@@ -126,7 +179,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CategoryScreen(category: model.categories[index],)
-                        ));
+                        )).then((value) {
+                          setState(() {
+                            //this.model.getCart();
+                          });
+                    });
                   },
                   child: Card(
                       child: Column(
