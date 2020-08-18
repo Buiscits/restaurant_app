@@ -18,7 +18,9 @@ class CategoryScreenViewModel extends ChangeNotifier {
         completion();
       }
     });
+  }
 
-
+  Future<Result<dynamic>> getCart() async {
+    return _apiResponse.getCart();
   }
 }

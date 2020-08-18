@@ -2,10 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
+import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 import 'cart_screen.dart';
 
@@ -28,7 +30,46 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   _categoryScreenState(this.category);
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Future.wait([model.getCart(), model.getItemsInCategory(this.category.id),]),
 
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.data[0] is SuccessState &&
+            snapshot.data[1] is SuccessState) {
+
+          Cart cart = (snapshot.data[0] as SuccessState).value;
+          CategoryItems categoryItems = (snapshot.data[1] as SuccessState)
+              .value;
+
+          return Scaffold(
+            appBar: MyAppBar((context), this.category.name, cart),
+            body: _itemsList(context, categoryItems),
+          );
+        } else
+        if (snapshot.data[0] is ErrorState && snapshot.data[1] is ErrorState) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Menu'),
+            ),
+
+            body: Center(
+              child: Text('A problem occurred and page could not be loaded'),
+            ),
+          );
+        } else {
+          return Scaffold(
+              appBar: AppBar(),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ));
+        }
+      }
+    );
+  }
+
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +111,8 @@ class _categoryScreenState extends State<CategoryScreen> {
           }),
     );
   }
+
+   */
 
   Widget _itemsList(BuildContext context, CategoryItems category) {
     List<Item> items = category.items;
