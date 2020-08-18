@@ -19,6 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: MenuScreen(),
+    );
+  }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       home: FutureBuilder(
         future: _appBarService.getCart(),
         builder: (context, snapshot) {
@@ -41,4 +49,7 @@ class MyApp extends StatelessWidget {
       //home: CheckoutScreen()
     );
   }
+  */
+
 }
+

@@ -11,7 +11,7 @@ class Cart {
   double totalItemPrice;
   int totalItemCount;
 
-  Cart({this.items,}); //this.totalItemPrice, this.totalItemCount});
+  Cart({this.items, this.totalItemPrice, this.totalItemCount});
 
   factory Cart.fromRawJson(String str) => 
       Cart.fromJson(jsonDecode(str));
@@ -27,8 +27,8 @@ class Cart {
           ))
       ),
 
-      //totalItemPrice: (json['cart_total'] as double),
-      //totalItemCount: json['cart_quantity']
+      totalItemPrice: (json['cart_total']),
+      totalItemCount: json['cart_quantity']
   );
 
 }

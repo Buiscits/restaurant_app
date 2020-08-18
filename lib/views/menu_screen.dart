@@ -10,6 +10,7 @@ import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
 import 'package:resturant_website_app/views/cart_screen.dart';
 import 'package:resturant_website_app/views/category_screen.dart';
+import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 class MenuScreen extends StatefulWidget {
   @override
@@ -47,6 +48,32 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: MyAppBar(),
+
+      body: FutureBuilder(
+          future: model.getMenu(),
+          builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
+            if (snapshot.data is SuccessState) {
+              Menu menu = (snapshot.data as SuccessState).value;
+              return _menuGrid(context, menu);
+            } else if (snapshot.data is ErrorState) {
+              String errorMessage = (snapshot.data as ErrorState).msg;
+              return Center(
+                  child: Text(errorMessage)
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
+    );
+  }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
         future: model.getMenu(),
         builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
@@ -65,6 +92,8 @@ class _MenuScreenState extends State<MenuScreen> {
           }
         });
   }
+
+   */
 
 
   /*
@@ -134,6 +163,8 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
    */
+
+
 
   Widget _menuGrid(BuildContext context, Menu model) {
     return Center(

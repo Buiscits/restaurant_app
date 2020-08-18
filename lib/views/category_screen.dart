@@ -28,6 +28,32 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   _categoryScreenState(this.category);
 
+  /*
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: model.getItemsInCategory(category.id),
+        builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
+          if (snapshot.data is SuccessState) {
+
+            CategoryItems items = (snapshot.data as SuccessState).value;
+            return _itemsList(context, items);
+          } else if (snapshot.data is ErrorState) {
+            String errorMessage = (snapshot.data as ErrorState).msg;
+            return Center(
+                child: Text(errorMessage)
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
+  }
+
+   */
+
+
 
   @override
   Widget build(BuildContext context) {
