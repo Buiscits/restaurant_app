@@ -6,6 +6,7 @@ import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
+import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 import 'cart_screen.dart';
 
@@ -58,24 +59,7 @@ class _categoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(category.name),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              child: Icon(Icons.shopping_basket),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CartScreen()
-                    ));
-              },
-            ),
-          )
-        ],
-      ),
+      appBar: MyAppBar(),
       body: FutureBuilder(
           future: model.getItemsInCategory(category.id),
           builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
@@ -150,6 +134,8 @@ class _categoryScreenState extends State<CategoryScreen> {
                   var completion = () {
                     Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(snackBar);
+
+                    MyAppBar.of(context).setState(() {  });
                   };
 
                   model.addItemToCart(item.itemId, completion);

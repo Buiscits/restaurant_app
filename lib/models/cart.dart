@@ -27,7 +27,7 @@ class Cart {
           ))
       ),
 
-      totalItemPrice: (json['cart_total']),
+      totalItemPrice: 0.0 + (json['cart_total']),
       totalItemCount: json['cart_quantity']
   );
 

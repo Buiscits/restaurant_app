@@ -23,14 +23,22 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MyAppBar extends State<MyAppBar> {
 
+  MyAppBarService _appBarService = MyAppBarService();
+
+  Future<Result<dynamic>> cartFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cartFuture = _appBarService.getCart();
+  }
+
   @override
   Widget build(BuildContext context) {
-    MyAppBarService _appBarService = MyAppBarService();
-
-    Future<Result<Cart>> cartFuture;
 
     return FutureBuilder(
-      future: _appBarService.getCart(),
+      future: cartFuture,
       builder: (context, snapshot) {
         if (snapshot.data is SuccessState) {
 
@@ -69,7 +77,13 @@ class _MyAppBar extends State<MyAppBar> {
                         MaterialPageRoute(
                             builder: (context) => CartScreen()
                         )).then((value) => () {
-                      MyAppBar.of(context).setState(() { });
+
+                      setState(() {
+                        cartFuture = _appBarService.getCart();
+                      });
+
+                      print('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
+
                     });
                   },
                 ),

@@ -25,6 +25,7 @@ class _MenuScreenState extends State<MenuScreen> {
   int totalItemQuantity = 0;
   double totalItemPrice = 0.0;
 
+  /*
   void waitForCart() async {
     var result = await model.getCart().then((value) => () {
       if (value is SuccessState) {
@@ -39,6 +40,8 @@ class _MenuScreenState extends State<MenuScreen> {
       }
     });
   }
+
+   */
 
   @override
   void initState() {
