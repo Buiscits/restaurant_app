@@ -45,10 +45,29 @@ class _MenuScreenState extends State<MenuScreen> {
     //waitForCart();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: model.getMenu(),
+        builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
+          if (snapshot.data is SuccessState) {
+            Menu menu = (snapshot.data as SuccessState).value;
+            return _menuGrid(context, menu);
+          } else if (snapshot.data is ErrorState) {
+            String errorMessage = (snapshot.data as ErrorState).msg;
+            return Center(
+                child: Text(errorMessage)
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
+  }
 
 
-
-
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +132,8 @@ class _MenuScreenState extends State<MenuScreen> {
             }),
       );
   }
+
+   */
 
   Widget _menuGrid(BuildContext context, Menu model) {
     return Center(
