@@ -14,59 +14,24 @@ class CategoryScreen extends StatefulWidget {
 
   final Category category;
 
-  //MyAppBar myAppBar;
-  //GlobalKey<MyAppBarState> appBarKey;
-
   CategoryScreen({@required this.category});
 
   @override
-  State<StatefulWidget> createState() => _categoryScreenState(category);
-
+  State<StatefulWidget> createState() => _categoryScreenState();
 }
 
 class _categoryScreenState extends State<CategoryScreen> {
 
   CategoryScreenViewModel model = serviceLocator<CategoryScreenViewModel>();
 
-  Category category;
-
-  _categoryScreenState(this.category);
-
   final _appBarKey = GlobalKey<MyAppBarState>();
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: model.getItemsInCategory(category.id),
-        builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
-          if (snapshot.data is SuccessState) {
-
-            CategoryItems items = (snapshot.data as SuccessState).value;
-            return _itemsList(context, items);
-          } else if (snapshot.data is ErrorState) {
-            String errorMessage = (snapshot.data as ErrorState).msg;
-            return Center(
-                child: Text(errorMessage)
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
-  }
-
-   */
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(key: _appBarKey, title: category.name,),
+      appBar: MyAppBar(key: _appBarKey, title: widget.category.name,),
       body: FutureBuilder(
-          future: model.getItemsInCategory(category.id),
+          future: model.getItemsInCategory(widget.category.id),
           builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
             if (snapshot.data is SuccessState) {
 
@@ -140,14 +105,7 @@ class _categoryScreenState extends State<CategoryScreen> {
                     Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(snackBar);
 
-                    //widget.appBarKey.currentState.loadAppBarData();
-
-                    var a = Scaffold.of(context);
-
                     this._appBarKey.currentState.loadAppBarData();
-
-                    //var a = MyAppBar.of(context);
-
                   };
 
                   model.addItemToCart(item.itemId, completion);
@@ -161,11 +119,6 @@ class _categoryScreenState extends State<CategoryScreen> {
             ],
           ),
         )
-
-
-
-
-
       ],
       ),
     );
