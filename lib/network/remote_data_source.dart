@@ -29,10 +29,6 @@ class RemoteDataSource {
       final response = await client.request(requestType: RequestType.GET, cookie: this.sessionCookie,  path: "menu/cats");
       if (response.statusCode == 200) {
 
-        if (response.headers['set-cookie'] != null) {
-          this.sessionCookie = response.headers['set-cookie'];
-        }
-
         return Result<Menu>.success(Menu.fromRawJson(response.body));
       } else {
         return Result.error('Failed to get menu json');
@@ -46,6 +42,7 @@ class RemoteDataSource {
     try {
       final response = await client.request(requestType: RequestType.GET, cookie: this.sessionCookie, path: "menu/items/?cat_id=$id",);
       if (response.statusCode == 200) {
+
         return Result<CategoryItems>.success(CategoryItems.fromRawJson(response.body));
       } else {
         return Result.error('Failed to get menu json');
@@ -59,6 +56,11 @@ class RemoteDataSource {
     try {
       final response = await client.request(requestType: RequestType.GET, cookie: this.sessionCookie, path: "cart",);
       if (response.statusCode == 200) {
+
+        if (response.headers['set-cookie'] != null && this.sessionCookie == '') {
+          this.sessionCookie = response.headers['set-cookie'];
+        }
+
         return Result<Cart>.success(Cart.fromRawJson(response.body));
       } else {
         return Result.error('Failed to get cart json');

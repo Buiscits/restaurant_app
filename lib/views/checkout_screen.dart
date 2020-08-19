@@ -26,7 +26,6 @@ class _checkoutScreenState extends State<CheckoutScreen> {
   String email = '';
   String customerNotes = '';
 
-
   @override
   Widget build(BuildContext context) {
 
@@ -43,29 +42,10 @@ class _checkoutScreenState extends State<CheckoutScreen> {
         child: Column(
           children: <Widget>[
 
-            /*
-            MyTextFormField(
-              hintText: 'Table Number',
-              isEmail: false,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter your table number';
-                }
-
-                return null;
-              },
-              onSaved: (String value) {
-                this.tableNumber = value.toString();
-              },
-            ),
-
-             */
-
             Padding(
               padding: EdgeInsets.only(left: 10, right: 10),
               child: DropdownButtonFormField<int>(
                 hint: Text('Table Number'),
-                //value: this.tableNumber,
                 onChanged: (value) {
                   this.tableNumber = value;
                 },
@@ -83,7 +63,6 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 validator: (value) {
                   return null;
                 },
-
 
                 onSaved: (value) {
                   this.tableNumber = value;
@@ -197,11 +176,8 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 ),
               ),
             )
-
         ]),
       ),
-
     );
   }
-
 }

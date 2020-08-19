@@ -9,6 +9,7 @@ import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/cart_screen_view_model.dart';
 import 'package:resturant_website_app/views/checkout_screen.dart';
+import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 class CartScreen extends StatefulWidget {
   @override
@@ -16,6 +17,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _cartScreenState extends State<CartScreen> {
+
+  final _appBarKey = GlobalKey<MyAppBarState>();
 
   CartScreenViewModel model = serviceLocator<CartScreenViewModel>();
 
@@ -31,9 +34,7 @@ class _cartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Basket'),
-      ),
+      appBar: MyAppBar(key: this._appBarKey, title: 'Cart',),
 
       body: FutureBuilder(
         future: cart,
@@ -110,13 +111,8 @@ class _cartScreenState extends State<CartScreen> {
             },
           ),
         )
-
       ],
-
-
     );
-
-
   }
 
   Widget _itemCard(BuildContext context, Item item) {
@@ -161,12 +157,12 @@ class _cartScreenState extends State<CartScreen> {
                       if (success) {
                         setState(() {
                           cart = model.getCart();
+                          this._appBarKey.currentState.loadAppBarData();
                         });
                       }
                     };
 
                     model.addItemToCart(item.itemId, completion);
-
                   },
                 ),
 
@@ -177,11 +173,6 @@ class _cartScreenState extends State<CartScreen> {
               ],
             ),
           )
-
-
-
-
-
         ],
       ),
     );

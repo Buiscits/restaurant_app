@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
@@ -15,84 +14,24 @@ class CategoryScreen extends StatefulWidget {
 
   final Category category;
 
-  CategoryScreen({Key key, @required this.category}) : super(key: key);
+  CategoryScreen({@required this.category});
 
   @override
-  State<StatefulWidget> createState() => _categoryScreenState(category);
-
+  State<StatefulWidget> createState() => _categoryScreenState();
 }
 
 class _categoryScreenState extends State<CategoryScreen> {
 
   CategoryScreenViewModel model = serviceLocator<CategoryScreenViewModel>();
 
-  Category category;
+  final _appBarKey = GlobalKey<MyAppBarState>();
 
-  _categoryScreenState(this.category);
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.wait([model.getCart(), model.getItemsInCategory(this.category.id),]),
-
-      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.data[0] is SuccessState &&
-            snapshot.data[1] is SuccessState) {
-
-          Cart cart = (snapshot.data[0] as SuccessState).value;
-          CategoryItems categoryItems = (snapshot.data[1] as SuccessState)
-              .value;
-
-          return Scaffold(
-            appBar: MyAppBar((context), this.category.name, cart),
-            body: _itemsList(context, categoryItems),
-          );
-        } else
-        if (snapshot.data[0] is ErrorState && snapshot.data[1] is ErrorState) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Menu'),
-            ),
-
-            body: Center(
-              child: Text('A problem occurred and page could not be loaded'),
-            ),
-          );
-        } else {
-          return Scaffold(
-              appBar: AppBar(),
-              body: Center(
-                child: CircularProgressIndicator(),
-              ));
-        }
-      }
-    );
-  }
-
-  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(category.name),
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: GestureDetector(
-              child: Icon(Icons.shopping_basket),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CartScreen()
-                    ));
-              },
-            ),
-          )
-        ],
-      ),
+      appBar: MyAppBar(key: _appBarKey, title: widget.category.name,),
       body: FutureBuilder(
-          future: model.getItemsInCategory(category.id),
+          future: model.getItemsInCategory(widget.category.id),
           builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
             if (snapshot.data is SuccessState) {
 
@@ -111,8 +50,6 @@ class _categoryScreenState extends State<CategoryScreen> {
           }),
     );
   }
-
-   */
 
   Widget _itemsList(BuildContext context, CategoryItems category) {
     List<Item> items = category.items;
@@ -167,6 +104,8 @@ class _categoryScreenState extends State<CategoryScreen> {
                   var completion = () {
                     Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(snackBar);
+
+                    this._appBarKey.currentState.loadAppBarData();
                   };
 
                   model.addItemToCart(item.itemId, completion);
@@ -180,11 +119,6 @@ class _categoryScreenState extends State<CategoryScreen> {
             ],
           ),
         )
-
-
-
-
-
       ],
       ),
     );
