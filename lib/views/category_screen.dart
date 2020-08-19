@@ -32,6 +32,8 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   _categoryScreenState(this.category);
 
+  final _appBarKey = GlobalKey<MyAppBarState>();
+
   /*
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class _categoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(key: _appBarKey, title: category.name,),
       body: FutureBuilder(
           future: model.getItemsInCategory(category.id),
           builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
@@ -140,8 +142,11 @@ class _categoryScreenState extends State<CategoryScreen> {
 
                     //widget.appBarKey.currentState.loadAppBarData();
 
-                    var a = MyAppBar.of(context);
-                    var b = 6;
+                    var a = Scaffold.of(context);
+
+                    this._appBarKey.currentState.loadAppBarData();
+
+                    //var a = MyAppBar.of(context);
 
                   };
 

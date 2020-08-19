@@ -24,6 +24,8 @@ class _MenuScreenState extends State<MenuScreen> {
   //GlobalKey<MyAppBarState> appBarKey;
   //MyAppBar myAppBar;
 
+  final _appBarKey = GlobalKey<MyAppBarState>();
+
   MenuScreenViewModel model = serviceLocator<MenuScreenViewModel>();
 
   int totalItemQuantity = 0;
@@ -40,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(key: _appBarKey, title: 'Menu',),
 
       body: FutureBuilder(
           future: model.getMenu(),
@@ -169,7 +171,9 @@ class _MenuScreenState extends State<MenuScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => CategoryScreen(category: model.categories[index],)
-                        ));
+                        )).then((value) {
+                          this._appBarKey.currentState.loadAppBarData();
+                    });
                   },
                   child: Card(
                       child: Column(

@@ -10,16 +10,12 @@ import 'package:resturant_website_app/services/my_app_bar_service.dart';
 import 'package:resturant_website_app/views/cart_screen.dart';
 
 
+
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
-  static MyAppBarState of(BuildContext context) => context.findAncestorStateOfType<MyAppBarState>();
+  final title;
 
-
-
-
-  //static _MyAppBar of(BuildContext context) => context.ancestorStateOfType(const TypeMatcher<_StartupPageState>());
-
-  MyAppBar({Key key}) : super(key: key);
+  MyAppBar({Key key, this.title}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => MyAppBarState();
@@ -68,7 +64,7 @@ class MyAppBarState extends State<MyAppBar> {
             Cart cart = (snapshot.data as SuccessState).value;
 
             return AppBar(
-              title: Text('title'),
+              title: Text(widget.title),
               actions: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(right: 20),
@@ -79,7 +75,7 @@ class MyAppBarState extends State<MyAppBar> {
 
                         Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Text('£ ${cart.totalItemPrice}'),
+                          child: Text('£ ${cart.totalItemPrice.toStringAsFixed(2)}'),
                         ),
 
                         Padding(
@@ -99,7 +95,9 @@ class MyAppBarState extends State<MyAppBar> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => CartScreen()
-                          ));
+                          )).then((value) {
+                            this.loadAppBarData();
+                      });
                     },
                   ),
                 ),
