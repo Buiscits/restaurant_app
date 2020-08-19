@@ -8,8 +8,6 @@ import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
 
-import 'cart_screen.dart';
-
 class CategoryScreen extends StatefulWidget {
 
   final Category category;
