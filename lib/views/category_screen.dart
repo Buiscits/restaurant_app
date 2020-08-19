@@ -135,7 +135,8 @@ class _categoryScreenState extends State<CategoryScreen> {
                     Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(snackBar);
 
-                    MyAppBar.of(context).setState(() {  });
+                    var a = MyAppBar.of(context);
+                    MyAppBar.of(context).loadAppBarData();
                   };
 
                   model.addItemToCart(item.itemId, completion);

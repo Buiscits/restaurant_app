@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MenuScreen(),
+      home: Builder(
+        builder: (context) => MenuScreen(),
+      )
     );
   }
 
