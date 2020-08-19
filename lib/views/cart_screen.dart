@@ -111,13 +111,8 @@ class _cartScreenState extends State<CartScreen> {
             },
           ),
         )
-
       ],
-
-
     );
-
-
   }
 
   Widget _itemCard(BuildContext context, Item item) {
@@ -168,7 +163,6 @@ class _cartScreenState extends State<CartScreen> {
                     };
 
                     model.addItemToCart(item.itemId, completion);
-
                   },
                 ),
 
@@ -179,11 +173,6 @@ class _cartScreenState extends State<CartScreen> {
               ],
             ),
           )
-
-
-
-
-
         ],
       ),
     );
