@@ -1,14 +1,10 @@
 
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
-import 'package:resturant_website_app/views/cart_screen.dart';
 import 'package:resturant_website_app/views/category_screen.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
 
@@ -16,28 +12,13 @@ class MenuScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _MenuScreenState();
-
 }
 
 class _MenuScreenState extends State<MenuScreen> {
 
-  //GlobalKey<MyAppBarState> appBarKey;
-  //MyAppBar myAppBar;
-
   final _appBarKey = GlobalKey<MyAppBarState>();
 
   MenuScreenViewModel model = serviceLocator<MenuScreenViewModel>();
-
-  int totalItemQuantity = 0;
-  double totalItemPrice = 0.0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    //appBarKey = GlobalKey<MyAppBarState>();
-    //myAppBar = MyAppBar(key: appBarKey,);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,101 +44,6 @@ class _MenuScreenState extends State<MenuScreen> {
           }),
     );
   }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: model.getMenu(),
-        builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
-          if (snapshot.data is SuccessState) {
-            Menu menu = (snapshot.data as SuccessState).value;
-            return _menuGrid(context, menu);
-          } else if (snapshot.data is ErrorState) {
-            String errorMessage = (snapshot.data as ErrorState).msg;
-            return Center(
-                child: Text(errorMessage)
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
-  }
-
-   */
-
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Menu'),
-          actions: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: GestureDetector(
-
-                child: Row(
-                  children: <Widget>[
-
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text('£ ${this.totalItemPrice}'),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: Text('(${this.totalItemQuantity})'),
-                    ),
-
-                    Icon(Icons.shopping_basket),
-
-
-
-                  ],
-                ),
-
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CartScreen()
-                      )).then((value) => () {
-                        //waitForCart();
-                  });
-                },
-              ),
-            ),
-
-          ],
-        ),
-
-        body: FutureBuilder(
-            future: model.getMenu(),
-            builder: (BuildContext context, AsyncSnapshot<Result> snapshot) {
-              if (snapshot.data is SuccessState) {
-                Menu menu = (snapshot.data as SuccessState).value;
-                return _menuGrid(context, menu);
-              } else if (snapshot.data is ErrorState) {
-                String errorMessage = (snapshot.data as ErrorState).msg;
-                return Center(
-                    child: Text(errorMessage)
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }),
-      );
-  }
-
-   */
-
-
 
   Widget _menuGrid(BuildContext context, Menu model) {
     return Center(
