@@ -14,7 +14,10 @@ class CategoryScreen extends StatefulWidget {
 
   final Category category;
 
-  CategoryScreen({Key key, @required this.category}) : super(key: key);
+  //MyAppBar myAppBar;
+  //GlobalKey<MyAppBarState> appBarKey;
+
+  CategoryScreen({@required this.category});
 
   @override
   State<StatefulWidget> createState() => _categoryScreenState(category);
@@ -135,8 +138,11 @@ class _categoryScreenState extends State<CategoryScreen> {
                     Scaffold.of(context).hideCurrentSnackBar();
                     Scaffold.of(context).showSnackBar(snackBar);
 
+                    //widget.appBarKey.currentState.loadAppBarData();
+
                     var a = MyAppBar.of(context);
-                    MyAppBar.of(context).loadAppBarData();
+                    var b = 6;
+
                   };
 
                   model.addItemToCart(item.itemId, completion);

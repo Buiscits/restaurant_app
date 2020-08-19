@@ -13,6 +13,7 @@ import 'package:resturant_website_app/views/category_screen.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
 
 class MenuScreen extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() => _MenuScreenState();
 
@@ -20,33 +21,20 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
 
+  //GlobalKey<MyAppBarState> appBarKey;
+  //MyAppBar myAppBar;
+
   MenuScreenViewModel model = serviceLocator<MenuScreenViewModel>();
 
   int totalItemQuantity = 0;
   double totalItemPrice = 0.0;
 
-  /*
-  void waitForCart() async {
-    var result = await model.getCart().then((value) => () {
-      if (value is SuccessState) {
-        Cart cart = ((value as SuccessState).value) as Cart;
-        setState(() {
-          this.totalItemQuantity = cart.totalItemCount;
-          this.totalItemPrice = cart.totalItemPrice;
-        });
-
-      } else {
-        print('errro');
-      }
-    });
-  }
-
-   */
-
   @override
   void initState() {
     super.initState();
-    //waitForCart();
+
+    //appBarKey = GlobalKey<MyAppBarState>();
+    //myAppBar = MyAppBar(key: appBarKey,);
   }
 
   @override

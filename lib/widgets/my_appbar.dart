@@ -12,19 +12,26 @@ import 'package:resturant_website_app/views/cart_screen.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
-  static _MyAppBarState of(BuildContext context) => context.findAncestorStateOfType<_MyAppBarState>();
+  static MyAppBarState of(BuildContext context) => context.findAncestorStateOfType<MyAppBarState>();
+
+
+
 
   //static _MyAppBar of(BuildContext context) => context.ancestorStateOfType(const TypeMatcher<_StartupPageState>());
 
+  MyAppBar({Key key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _MyAppBarState();
+  State<StatefulWidget> createState() => MyAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+
 }
 
 
-class _MyAppBarState extends State<MyAppBar> {
+class MyAppBarState extends State<MyAppBar> {
 
   MyAppBarService _appBarService = MyAppBarService();
 
