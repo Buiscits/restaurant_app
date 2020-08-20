@@ -26,10 +26,10 @@ class MenuClient {
         return cookie != '' ? _client.get("$_baseUrl/$path", headers: {'cookie': cookie}) : _client.get("$_baseUrl/$path");
       case RequestType.POST:
         return _client.post("$_baseUrl/$path",
-            headers: {"Content-Type": "application/json", "cookie": cookie}, body: /*parameter*/ json.encode(parameter));
+            headers: {"Content-Type": "application/json", "cookie": cookie}, body: json.encode(parameter));
       case RequestType.FORM_POST:
         return _client.post("$_baseUrl/$path",
-            headers: {"Content-Type": "application/x-www-form-urlencoded", "cookie": cookie}, body: /*parameter*/ parameter);
+            headers: {"Content-Type": "application/x-www-form-urlencoded", "cookie": cookie}, body: parameter);
       case RequestType.DELETE:
         return _client.delete("$_baseUrl/$path");
       default:
