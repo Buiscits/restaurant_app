@@ -22,13 +22,16 @@ class _cartScreenState extends State<CartScreen> {
 
   CartScreenViewModel model = serviceLocator<CartScreenViewModel>();
 
-  Future<Result<dynamic>> cart;
-
   @override
   void initState() {
     super.initState();
+    model.getCart();
+  }
 
-    cart = model.getCart();
+  @override
+  void dispose() {
+    super.dispose();
+    model.dispose();
   }
 
   @override
@@ -36,6 +39,51 @@ class _cartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: MyAppBar(key: this._appBarKey, title: 'Cart',),
 
+      body: StreamBuilder(
+        stream: model.streamController.stream,
+        builder: (context, snapshot) {
+
+          if (snapshot.data is SuccessState) {
+
+            List<Item> items = ((snapshot.data as SuccessState).value as Cart).items;
+
+            if (items.isNotEmpty) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+
+                    Expanded(
+                      child: _itemsList(context, items),
+                    ),
+
+                  ],
+                ),
+              );
+            } else {
+              return Center(
+                child: Text('The cart is empty'),
+              );
+            }
+
+          } else if (snapshot.data is ErrorState) {
+
+            String errorMessage = (snapshot.data as ErrorState).msg;
+            return Center(
+                child: Text(errorMessage)
+            );
+
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+        },
+      ),
+    );
+  }
+      /*
       body: FutureBuilder(
         future: cart,
         builder: (context, snapshot) {
@@ -75,9 +123,8 @@ class _cartScreenState extends State<CartScreen> {
             );
           }
         },
-      ),
-    );
-  }
+
+       */
 
   Widget _itemsList(BuildContext context, List<Item> items) {
 
@@ -153,11 +200,13 @@ class _cartScreenState extends State<CartScreen> {
                   icon: Icon(Icons.add),
                   onPressed: () {
 
-                    var completion = (bool success, Cart cart) {
+                    var completion = (bool success) {
                       if (success) {
                         setState(() {
-                          cart = cart;
                           this._appBarKey.currentState.loadAppBarData();
+
+                          Scaffold.of(context).hideCurrentSnackBar();
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added item'), duration: Duration(seconds: 1),));
                         });
                       }
                     };
@@ -169,6 +218,25 @@ class _cartScreenState extends State<CartScreen> {
 
                 IconButton(
                   icon: Icon(Icons.remove),
+                  onPressed: () {
+
+                    var completion = (bool success) {
+                      if (success) {
+                        this._appBarKey.currentState.loadAppBarData();
+
+                        Scaffold.of(context).hideCurrentSnackBar();
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed item'), duration: Duration(seconds: 1),));
+                      }
+                    };
+
+                    if (item.quantity == 1) {
+
+                    } else {
+                      model.changeItemQuantity(item.itemId, item.quantity - 1, completion);
+                    }
+
+                  },
+
                 ),
 
               ],
