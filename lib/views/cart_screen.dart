@@ -153,16 +153,17 @@ class _cartScreenState extends State<CartScreen> {
                   icon: Icon(Icons.add),
                   onPressed: () {
 
-                    var completion = (bool success) {
+                    var completion = (bool success, Cart cart) {
                       if (success) {
                         setState(() {
-                          cart = model.getCart();
+                          cart = cart;
                           this._appBarKey.currentState.loadAppBarData();
                         });
                       }
                     };
 
-                    model.addItemToCart(item.itemId, completion);
+                    model.changeItemQuantity(item.itemId, item.quantity + 1, completion);
+                    //model.addItemToCart(item.itemId, completion);
                   },
                 ),
 

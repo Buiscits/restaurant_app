@@ -89,6 +89,25 @@ class RemoteDataSource {
     }
   }
 
+  Future<Result> updateItemInCart(int itemId, int newQuantity) async {
+
+    try {
+      //2
+      final response = await client.request(
+          requestType: RequestType.POST, path: "cart", cookie: this.sessionCookie, parameter: {"item_id": itemId, "quantity": newQuantity});
+      if (response.statusCode == 200) {
+        //3
+
+        return Result<Cart>.success(Cart.fromRawJson(response.body));
+
+      } else {
+        return Result.error('Failed to change items quantity');
+      }
+    } catch (error) {
+      return Result.error('Error: Failed at changing items quantity');
+    }
+  }
+
   Future<Result> checkout(Map<String, dynamic> data) async {
     try {
       //2
