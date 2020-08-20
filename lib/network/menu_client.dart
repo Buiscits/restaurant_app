@@ -27,6 +27,9 @@ class MenuClient {
       case RequestType.POST:
         return _client.post("$_baseUrl/$path",
             headers: {"Content-Type": "application/json", "cookie": cookie}, body: json.encode(parameter));
+      case RequestType.PUT:
+        return _client.put("$_baseUrl/$path",
+            headers: {"Content-Type": "application/json", "cookie": cookie}, body: json.encode(parameter));
       case RequestType.FORM_POST:
         return _client.post("$_baseUrl/$path",
             headers: {"Content-Type": "application/x-www-form-urlencoded", "cookie": cookie}, body: parameter);

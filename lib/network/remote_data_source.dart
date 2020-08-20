@@ -94,7 +94,7 @@ class RemoteDataSource {
     try {
       //2
       final response = await client.request(
-          requestType: RequestType.POST, path: "cart", cookie: this.sessionCookie, parameter: {"item_id": itemId, "quantity": newQuantity});
+          requestType: RequestType.PUT, path: "cart", cookie: this.sessionCookie, parameter: {"item_id": itemId, "quantity": newQuantity});
       if (response.statusCode == 200) {
         //3
 
