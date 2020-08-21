@@ -132,14 +132,17 @@ class _cartScreenState extends State<CartScreen> {
       children: <Widget>[
 
         Expanded(
-          child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) => Container(
-                  padding: EdgeInsets.all(2),
-                  child: Center(
-                    child: _itemCard(context, items[index]),
-                  )
-              )
+          child: Padding(
+            padding: EdgeInsets.only(top: 2),
+            child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) => Container(
+                    padding: EdgeInsets.only(left: 8, right: 8),
+                    child: Center(
+                      child: _itemCard(context, items[index]),
+                    )
+                )
+            ),
           ),
         ),
 
@@ -162,6 +165,100 @@ class _cartScreenState extends State<CartScreen> {
     );
   }
 
+  Widget _itemCard(BuildContext context, Item item) {
+    return Card(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          Padding(
+              padding: EdgeInsets.only(left: 20, top: 10),
+              child: Text(
+                '${item.name}',
+                style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20.0, fontWeight: FontWeight.bold),)
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+
+              Padding(
+                  padding: EdgeInsets.only(left: 20,),
+                  child: Text('£${item.price.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 22.0),)
+              ),
+
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 10, bottom: 10),
+                    child: RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                        child: Text('Add'),
+
+                        onPressed: () {
+
+                          var completion = (bool success) {
+                            if (success) {
+                              setState(() {
+                                this._appBarKey.currentState.loadAppBarData();
+
+                                Scaffold.of(context).hideCurrentSnackBar();
+                                Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added ${item.name}'), duration: Duration(seconds: 1),));
+                              });
+                            }
+                          };
+
+                          model.changeItemQuantity(item.itemId, item.quantity + 1, completion);
+
+                        }
+
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(right: 10, bottom: 10),
+                    child: RaisedButton(
+                        color: Colors.red,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                        child: Text('Remove'),
+
+                        onPressed: () {
+
+                          var completion = (bool success) {
+                            if (success) {
+                              this._appBarKey.currentState.loadAppBarData();
+
+                              Scaffold.of(context).hideCurrentSnackBar();
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed ${item.name}'), duration: Duration(seconds: 1),));
+                            }
+                          };
+
+                          if (item.quantity == 1) {
+
+                          } else {
+                            model.changeItemQuantity(item.itemId, item.quantity - 1, completion);
+                          }
+
+                        }
+
+                    ),
+                  )
+                ],
+              )
+
+            ],
+          )
+
+
+        ],
+      ),
+    );
+  }
+
+
+  /*
   Widget _itemCard(BuildContext context, Item item) {
     return Card(
       margin: EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -246,5 +343,7 @@ class _cartScreenState extends State<CartScreen> {
       ),
     );
   }
+
+   */
 
 }
