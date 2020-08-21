@@ -56,7 +56,7 @@ class _categoryScreenState extends State<CategoryScreen> {
       child: ListView.builder(
           itemCount: items.length,
           itemBuilder: (context, index) => Container(
-            padding: EdgeInsets.all(2),
+            padding: EdgeInsets.only(right: 8, left: 8),
             child: _itemCard(context, items[index])
           )
       ),
@@ -116,69 +116,4 @@ class _categoryScreenState extends State<CategoryScreen> {
       ),
     );
   }
-
-  /*
-
-  Widget _itemCard(BuildContext context, Item item) {
-    return Card(
-      margin: EdgeInsets.only(right: 10, left: 10, top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-
-          Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Column(
-              children: <Widget>[
-                Text(item.name),
-              ],
-            ),
-          ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text('£ ${item.price.toStringAsFixed(2)}'),
-            //Text('x2'),
-          ],
-        ),
-
-
-        Padding(
-          padding: EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-
-                  final snackBar = SnackBar(content: Text('${item.name} added to basket'), duration: Duration(seconds: 1),);
-
-                  var completion = () {
-                    Scaffold.of(context).hideCurrentSnackBar();
-                    Scaffold.of(context).showSnackBar(snackBar);
-
-                    this._appBarKey.currentState.loadAppBarData();
-                  };
-
-                  model.addItemToCart(item.itemId, completion);
-                },
-              ),
-
-              IconButton(
-                icon: Icon(Icons.remove),
-              ),
-
-            ],
-          ),
-        )
-      ],
-      ),
-    );
-  }
-
-   */
-
 }
