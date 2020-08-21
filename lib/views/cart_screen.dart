@@ -246,15 +246,35 @@ class _cartScreenState extends State<CartScreen> {
                     ),
                   )
                 ],
-              )
+              ),
+
+            ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+
+              _itemQuantityText(context, item)
 
             ],
           )
-
+        
 
         ],
       ),
     );
+  }
+
+  Widget _itemQuantityText(BuildContext context, Item item) {
+
+    String quantityText = item.quantity == 1 ? '1 Item in cart' : '${item.quantity} items in cart';
+
+    return Padding(
+      padding: EdgeInsets.only(right: 10, bottom: 10),
+      child: Text(quantityText, style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),),
+    );
+
   }
 
 
