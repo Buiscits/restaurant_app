@@ -35,5 +35,16 @@ class CartScreenViewModel {
     });
   }
 
+  void deleteItem(int itemId, Function completion) async {
+    return _apiResponse.deleteItemFromCart(itemId).then((value) {
+
+      streamController.add(value);
+
+      if (value is SuccessState) {
+        completion(true);
+      }
+    });
+  }
+
 
 }

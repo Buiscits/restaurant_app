@@ -34,7 +34,7 @@ class MenuClient {
         return _client.post("$_baseUrl/$path",
             headers: {"Content-Type": "application/x-www-form-urlencoded", "cookie": cookie}, body: parameter);
       case RequestType.DELETE:
-        return _client.delete("$_baseUrl/$path");
+        return _client.delete("$_baseUrl/$path", headers: {"Content-Type": "application/json", "cookie": cookie});
       default:
         return throw RequestTypeNotFoundException("The HTTP request mentioned is not found");
     }

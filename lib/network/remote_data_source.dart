@@ -107,6 +107,23 @@ class RemoteDataSource {
       return Result.error('Error: Failed at changing items quantity');
     }
   }
+  
+  Future<Result> deleteItemFromCart(int itemId) async {
+    try {
+      final response = await client.request(requestType: RequestType.DELETE, path: 'cart/?item_id=${itemId}', cookie: this.sessionCookie);
+
+      if (response.statusCode == 200) {
+        //3
+
+        return Result<Cart>.success(Cart.fromRawJson(response.body));
+
+      } else {
+        return Result.error('Failed to delete item');
+      }
+    } catch (error) {
+      return Result.error('Error: Failed to delete item');
+    }
+  }
 
   Future<Result> checkout(Map<String, dynamic> data) async {
     try {

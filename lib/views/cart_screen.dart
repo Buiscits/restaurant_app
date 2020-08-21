@@ -236,7 +236,7 @@ class _cartScreenState extends State<CartScreen> {
                           };
 
                           if (item.quantity == 1) {
-
+                            model.deleteItem(item.itemId, completion);
                           } else {
                             model.changeItemQuantity(item.itemId, item.quantity - 1, completion);
                           }
