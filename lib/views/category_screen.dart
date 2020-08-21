@@ -51,16 +51,73 @@ class _categoryScreenState extends State<CategoryScreen> {
 
   Widget _itemsList(BuildContext context, CategoryItems category) {
     List<Item> items = category.items;
-    return ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) => Container(
-          padding: EdgeInsets.all(2),
-          child: Center(
-            child: _itemCard(context, items[index]),
+    return Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) => Container(
+            padding: EdgeInsets.all(2),
+            child: _itemCard(context, items[index])
           )
-        )
+      ),
     );
   }
+
+  Widget _itemCard(BuildContext context, Item item) {
+    return Card(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+
+          Padding(
+              padding: EdgeInsets.only(left: 20, top: 10),
+              child: Text(
+                '${item.name}',
+                style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20.0, fontWeight: FontWeight.bold),)
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+
+              Padding(
+                  padding: EdgeInsets.only(left: 20,),
+                  child: Text('£${item.price.toStringAsFixed(2)}', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 22.0),)
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(right: 10, bottom: 10),
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                  child: Text('Add'),
+
+                  onPressed: () {
+                    final snackBar = SnackBar(content: Text('${item.name} added to basket'), duration: Duration(seconds: 1),);
+
+                    var completion = () {
+                      Scaffold.of(context).hideCurrentSnackBar();
+                      Scaffold.of(context).showSnackBar(snackBar);
+
+                      this._appBarKey.currentState.loadAppBarData();
+                    };
+
+                    model.addItemToCart(item.itemId, completion);
+                  },
+
+                ),
+              )
+            ],
+          )
+
+
+        ],
+      ),
+    );
+  }
+
+  /*
 
   Widget _itemCard(BuildContext context, Item item) {
     return Card(
@@ -121,5 +178,7 @@ class _categoryScreenState extends State<CategoryScreen> {
       ),
     );
   }
+
+   */
 
 }
