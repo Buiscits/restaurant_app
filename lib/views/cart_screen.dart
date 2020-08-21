@@ -206,7 +206,7 @@ class _cartScreenState extends State<CartScreen> {
                           this._appBarKey.currentState.loadAppBarData();
 
                           Scaffold.of(context).hideCurrentSnackBar();
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added item'), duration: Duration(seconds: 1),));
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added ${item.name}'), duration: Duration(seconds: 1),));
                         });
                       }
                     };
@@ -225,7 +225,7 @@ class _cartScreenState extends State<CartScreen> {
                         this._appBarKey.currentState.loadAppBarData();
 
                         Scaffold.of(context).hideCurrentSnackBar();
-                        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed item'), duration: Duration(seconds: 1),));
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed ${item.name}'), duration: Duration(seconds: 1),));
                       }
                     };
 
