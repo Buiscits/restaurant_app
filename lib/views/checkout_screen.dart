@@ -50,7 +50,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                   this.tableNumber = value;
                 },
 
-                items: List.generate(10, (index) {
+                items: List.generate(100, (index) {
                   return DropdownMenuItem<int>(
                     value: index + 1,
                     child: Padding(
