@@ -78,7 +78,7 @@ class MyAppBarState extends State<MyAppBar> {
 
                         Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Text('(${cart.totalItemCount})'),
+                          child: cart.totalItemCount == 0 ? Text('') : Text('(${cart.totalItemCount})'),
                         ),
 
                         Icon(Icons.shopping_basket),
