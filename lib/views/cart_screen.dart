@@ -83,48 +83,6 @@ class _cartScreenState extends State<CartScreen> {
       ),
     );
   }
-      /*
-      body: FutureBuilder(
-        future: cart,
-        builder: (context, snapshot) {
-          if (snapshot.data is SuccessState) {
-
-            List<Item> items = ((snapshot.data as SuccessState).value as Cart).items;
-
-            if (items.isNotEmpty) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-
-                    Expanded(
-                      child: _itemsList(context, items),
-                    ),
-
-                  ],
-                ),
-              );
-            } else {
-              return Center(
-                child: Text('The cart is empty'),
-              );
-            }
-
-          } else if (snapshot.data is ErrorState) {
-
-            String errorMessage = (snapshot.data as ErrorState).msg;
-            return Center(
-                child: Text(errorMessage)
-            );
-            
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-
-       */
 
   Widget _itemsList(BuildContext context, List<Item> items) {
 

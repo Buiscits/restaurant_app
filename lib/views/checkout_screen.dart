@@ -160,11 +160,11 @@ class _checkoutScreenState extends State<CheckoutScreen> {
 
                       var completion = (CheckoutCompleted completedCheckout) {
                         if (completedCheckout != null) {
-                          Navigator.push(context, MaterialPageRoute(
+                          Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context) =>
                                   CheckoutCompletedScreen(model: completedCheckout)));
                         } else {
-                          Navigator.push(context, MaterialPageRoute(
+                          Navigator.pushReplacement(context, MaterialPageRoute(
                               builder: (context) =>
                                   CheckoutCompletedScreen(model: null)));
                         }

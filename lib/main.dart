@@ -23,33 +23,5 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: FutureBuilder(
-        future: _appBarService.getCart(),
-        builder: (context, snapshot) {
-          if (snapshot.data is SuccessState) {
-
-            Cart cart = (snapshot.data as SuccessState).value;
-
-            return Scaffold(
-              appBar: MyAppBar(context, 'Menu', cart),
-              body: MenuScreen(),
-            );
-          } else if (snapshot.data is ErrorState) {
-            return Text('error');
-          } else{
-            return CircularProgressIndicator();
-          }
-        },
-
-      )
-      //home: CheckoutScreen()
-    );
-  }
-  */
-
 }
 
