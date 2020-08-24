@@ -80,7 +80,7 @@ class _MenuScreenState extends State<MenuScreen> {
                               child: Padding(
                                 padding: EdgeInsets.only(left: 5, right: 5),
                                 child:  ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10.0),
                                   child: _categoryImage(context, model.categories[index].img),
                                 )
                             )
@@ -96,7 +96,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget _categoryImage(BuildContext context, dynamic imgString) {
     if (imgString != null) {
-      return Image.network(imgString);
+      return Image.network(imgString, fit: BoxFit.fill,);
     } else {
       return SizedBox.shrink();
     }
