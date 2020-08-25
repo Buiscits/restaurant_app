@@ -67,7 +67,16 @@ class CheckoutCompletedScreen extends StatelessWidget {
 
   Widget _buildItemCard(BuildContext context, Item item) {
     return ListTile(
-        title: Text('${item.name}')
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+
+            Text('${item.name}', style: TextStyle(fontWeight: FontWeight.bold),),
+            Text('£ ${item.price.toStringAsFixed(2)}', style: TextStyle(fontSize: 20.0),)
+
+          ]
+        ),
+      subtitle: item.quantity == 1 ? Text('1 Item', style: TextStyle(color: Colors.green),) : Text('${item.quantity} items', style: TextStyle(color: Colors.green),),
     );
   }
 
