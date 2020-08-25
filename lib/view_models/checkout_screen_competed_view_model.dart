@@ -17,9 +17,20 @@ class CheckoutScreenCompletedViewModel {
 
   String formatDate(String date) {
     DateTime dateTime = DateTime.parse(date);
-    var formatter = DateFormat('EEEE, d MMMM H:m');
 
-    return formatter.format(dateTime);
+    var dateFormatter = DateFormat('EEEE, d MMMM H:');
+    String formattedDate = dateFormatter.format(dateTime);
+
+    var minuteFormatter = DateFormat('m');
+    String formattedMinute = minuteFormatter.format(dateTime);
+
+    if (formattedMinute.length == 1) {
+      formattedDate += '0${formattedMinute}';
+    } else {
+      formattedDate += formattedMinute;
+    }
+
+    return formattedDate;
   }
 
 }
