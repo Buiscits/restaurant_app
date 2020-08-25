@@ -107,21 +107,24 @@ class _cartScreenState extends State<CartScreen> {
 
 
         Padding(
-          padding: EdgeInsets.only(bottom: 12),
-          child: RaisedButton(
-            color: Colors.green,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-            child: Text('Proceed to checkout', style: TextStyle(color: Colors.white),),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CheckoutScreen()
-                  )
-              );
-            },
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: SizedBox(
+            width: double.infinity,
+            child: RaisedButton(
+              color: Colors.green,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CheckoutScreen()
+                    )
+                );
+              },
+              child: Text('Proceed to checkout', style: TextStyle(color: Colors.white),),
+            ),
           ),
-        )
+        ),
       ],
     );
   }
