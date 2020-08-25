@@ -25,7 +25,7 @@ class CheckoutCompletedScreen extends StatelessWidget {
             Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
-        title: Text('You Order has been placed'),
+        title: Text('Success'),
       ),
 
       body: model != null ? _buildModelContents(context)
