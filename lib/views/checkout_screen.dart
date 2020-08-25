@@ -61,7 +61,8 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 }),
 
                 validator: (value) {
-                  return null;
+                  var a = value;
+                  return value == null ? 'Please select a table number' : null;
                 },
 
                 onSaved: (value) {
