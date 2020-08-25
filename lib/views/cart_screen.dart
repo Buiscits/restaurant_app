@@ -109,8 +109,8 @@ class _cartScreenState extends State<CartScreen> {
         Padding(
           padding: EdgeInsets.only(bottom: 12),
           child: RaisedButton(
-
             color: Colors.green,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
             child: Text('Proceed to checkout', style: TextStyle(color: Colors.white),),
             onPressed: () {
               Navigator.push(
@@ -155,7 +155,7 @@ class _cartScreenState extends State<CartScreen> {
                   Padding(
                     padding: EdgeInsets.only(right: 10, bottom: 10),
                     child: RaisedButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                         child: Text('Add'),
 
                         onPressed: () {
@@ -182,7 +182,7 @@ class _cartScreenState extends State<CartScreen> {
                     padding: EdgeInsets.only(right: 10, bottom: 10),
                     child: RaisedButton(
                         color: Colors.red,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                         child: Text('Remove', style: TextStyle(color: Colors.white),),
 
                         onPressed: () {

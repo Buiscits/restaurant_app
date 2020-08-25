@@ -90,7 +90,7 @@ class _categoryScreenState extends State<CategoryScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 10, bottom: 10),
                 child: RaisedButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                   child: Text('Add'),
 
                   onPressed: () {

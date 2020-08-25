@@ -73,7 +73,7 @@ class MyAppBarState extends State<MyAppBar> {
 
                         Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Text('£ ${cart.totalItemPrice.toStringAsFixed(2)}'),
+                          child: cart.totalItemCount == 0 ? Text('') : Text('£ ${cart.totalItemPrice.toStringAsFixed(2)}'),
                         ),
 
                         Padding(
