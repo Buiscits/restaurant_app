@@ -143,11 +143,13 @@ class _checkoutScreenState extends State<CheckoutScreen> {
             ),
 
             Padding(
-              padding: EdgeInsets.only(right: 10, left: 10),
+              padding: EdgeInsets.only(right: 20, left: 20),
               child: SizedBox(
                 width: double.infinity,
                 child: RaisedButton(
-                  child: Text('Place Order'),
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                  child: Text('Place Order', style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
