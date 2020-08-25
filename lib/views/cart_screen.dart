@@ -89,10 +89,11 @@ class _cartScreenState extends State<CartScreen> {
     return Column(
       children: <Widget>[
 
-        Expanded(
+        Flexible(
           child: Padding(
             padding: EdgeInsets.only(top: 2),
             child: ListView.builder(
+              shrinkWrap: true,
                 itemCount: items.length,
                 itemBuilder: (context, index) => Container(
                     padding: EdgeInsets.only(left: 8, right: 8),
