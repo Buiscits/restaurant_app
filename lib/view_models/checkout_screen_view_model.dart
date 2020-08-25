@@ -8,22 +8,5 @@ import 'package:resturant_website_app/network/remote_data_source.dart';
 
 class CheckoutScreenViewModel {
 
-  RemoteDataSource _apiResponse = RemoteDataSource();
 
-
-  void checkout(Checkout checkout, Function completion) async {
-
-    var result = _apiResponse.checkout(checkout.toJson()).then((value) {
-      if (value is SuccessState) {
-        CheckoutCompleted completedCheckout = (value as SuccessState).value;
-
-        completion(completedCheckout);
-
-      } else {
-        completion(null);
-      }
-    }) ;
-
-
-  }
 }

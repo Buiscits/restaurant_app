@@ -161,19 +161,10 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                           surname: this.surname,
                           tableNumber: '${this.tableNumber}');
 
-                      var completion = (CheckoutCompleted completedCheckout) {
-                        if (completedCheckout != null) {
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (context) =>
-                                  CheckoutCompletedScreen(model: completedCheckout)));
-                        } else {
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (context) =>
-                                  CheckoutCompletedScreen(model: null)));
-                        }
-                      };
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                          builder: (context) =>
+                              CheckoutCompletedScreen(checkout: checkout)));
 
-                      model.checkout(checkout, completion);
                     }
                   },
                 ),
