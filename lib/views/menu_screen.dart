@@ -63,18 +63,30 @@ class _MenuScreenState extends State<MenuScreen> {
                   },
                   child: Card(
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
 
 
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.only(bottom: 5, left: 10, right: 10, top: 10),
+                                padding: EdgeInsets.only(bottom: 5, left: 10, right: 10, top: 20),
                                 child: Text(model.categories[index].name,style: TextStyle(fontSize: 24),),
                               )
                             ),
 
+                            Container(
+                              width: double.infinity,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.vertical(bottom: Radius.circular(4.0)),
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(model.categories[index].img)
+                                )
+                              ),
+                            )
+
+                            /*
                             AspectRatio(
                               aspectRatio: 3/2,
                               child: Padding(
@@ -85,7 +97,9 @@ class _MenuScreenState extends State<MenuScreen> {
                                 )
                             )
 
-                            )
+                             */
+
+
 
                           ]
                       )
