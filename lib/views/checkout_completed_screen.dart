@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/checkout.dart';
 import 'package:resturant_website_app/models/chekout_completed.dart';
+import 'package:resturant_website_app/view_models/checkout_screen_competed_view_model.dart';
 
 class CheckoutCompletedScreen extends StatelessWidget {
+
+  CheckoutScreenCompletedViewModel viewModel = CheckoutScreenCompletedViewModel();
 
   CheckoutCompleted model;
 
@@ -36,10 +39,11 @@ class CheckoutCompletedScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Text('Order Number: ${model.orderNumber}', style: TextStyle(fontSize: 20),),
+            Text('Total: £${model.subtotal.toStringAsFixed(2)}', style: TextStyle(fontSize: 20),),
             Text('Table Number: ${model.tableNumber}', style: TextStyle(fontSize: 20),),
-            Text('Date: ${model.date}'),
-            Text('Total: £${model.subtotal.toStringAsFixed(2)}'),
-            Text('Order Number: ${model.orderNumber}'),
+            //Text('${model.date}', style: TextStyle(fontSize: 20),),
+            Text('${viewModel.formatDate(model.date)}', style: TextStyle(fontSize: 20),),
 
             Flexible(
               child: ListView.builder(

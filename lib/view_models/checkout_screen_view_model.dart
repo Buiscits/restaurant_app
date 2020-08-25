@@ -6,7 +6,7 @@ import 'package:resturant_website_app/models/chekout_completed.dart';
 import 'package:resturant_website_app/models/result.dart';
 import 'package:resturant_website_app/network/remote_data_source.dart';
 
-class CheckoutScreenViewModel extends ChangeNotifier {
+class CheckoutScreenViewModel {
 
   RemoteDataSource _apiResponse = RemoteDataSource();
 
