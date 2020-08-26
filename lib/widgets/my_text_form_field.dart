@@ -10,6 +10,7 @@ class MyTextFormField extends StatelessWidget {
   final bool isEmail;
   final int minLines;
   final int maxLines;
+  final String labelText;
 
   MyTextFormField({
     this.hintText,
@@ -17,7 +18,8 @@ class MyTextFormField extends StatelessWidget {
     this.onSaved,
     this.isEmail,
     this.minLines,
-    this.maxLines
+    this.maxLines,
+    this.labelText
   });
 
   @override
@@ -27,6 +29,7 @@ class MyTextFormField extends StatelessWidget {
 
      child: TextFormField(
        decoration: InputDecoration(
+         labelText: this.labelText,
          hintText: this.hintText,
          contentPadding: EdgeInsets.all(15.0),
          border: InputBorder.none,

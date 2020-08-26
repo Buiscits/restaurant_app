@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/checkout.dart';
 import 'package:resturant_website_app/models/chekout_completed.dart';
+import 'package:resturant_website_app/models/saved_user_data.dart';
 import 'package:resturant_website_app/view_models/checkout_screen_view_model.dart';
 import 'package:resturant_website_app/views/checkout_completed_screen.dart';
 import 'package:resturant_website_app/widgets/my_text_form_field.dart';
@@ -25,6 +26,21 @@ class _checkoutScreenState extends State<CheckoutScreen> {
   String surname = '';
   String email = '';
   String customerNotes = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    var savedData = model.loadSavedUserData().then((value) {
+
+      setState(() {
+        value.name == '' ? this.name = '' : this.name = value.name;
+        value.surname == '' ? this.surname = '' : this.surname = value.surname;
+        value.email == '' ? this.email = '' : this.email = value.email;
+      });
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +77,6 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                 }),
 
                 validator: (value) {
-                  var a = value;
                   return value == null ? 'Please select a table number' : null;
                 },
 
@@ -78,6 +93,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                   Container(
                     width: halfScreenWidth,
                     child: MyTextFormField(
+                      labelText: this.name == '' ? null : this.name,
                       hintText: 'First Name',
                       isEmail: false,
                       validator: (String value) {
@@ -96,6 +112,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                   Container(
                     width: halfScreenWidth,
                     child: MyTextFormField(
+                      labelText: this.surname,
                       hintText: 'Surname Name',
                       isEmail: false,
                       validator: (String value) {
@@ -111,6 +128,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
             ),
 
             MyTextFormField(
+              labelText: this.email,
               hintText: 'Email',
               minLines: 1,
               isEmail: true,
@@ -154,6 +172,9 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
+
+                      var saveuserData = SavedUserData(name: this.name, surname: this.surname, email: this.email);
+                      model.saveToDefaults(saveuserData);
 
                       var checkout = Checkout(customerNotes: this.customerNotes,
                           email: this.email,
