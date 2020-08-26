@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
-import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/menu_screen_view_model.dart';
 import 'package:resturant_website_app/views/category_screen.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
@@ -18,7 +17,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   final _appBarKey = GlobalKey<MyAppBarState>();
 
-  MenuScreenViewModel model = serviceLocator<MenuScreenViewModel>();
+  MenuScreenViewModel model = MenuScreenViewModel();
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/categories.dart';
 import 'package:resturant_website_app/models/result.dart';
-import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/category_screen_view_model.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
 
@@ -20,7 +19,7 @@ class CategoryScreen extends StatefulWidget {
 
 class _categoryScreenState extends State<CategoryScreen> {
 
-  CategoryScreenViewModel model = serviceLocator<CategoryScreenViewModel>();
+  CategoryScreenViewModel model = CategoryScreenViewModel();
 
   final _appBarKey = GlobalKey<MyAppBarState>();
 

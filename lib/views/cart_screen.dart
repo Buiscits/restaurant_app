@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:resturant_website_app/models/cart.dart';
 import 'package:resturant_website_app/models/categories.dart';
-import 'package:resturant_website_app/models/checkout.dart';
 import 'package:resturant_website_app/models/result.dart';
-import 'package:resturant_website_app/services/service_locator.dart';
 import 'package:resturant_website_app/view_models/cart_screen_view_model.dart';
 import 'package:resturant_website_app/views/checkout_screen.dart';
 import 'package:resturant_website_app/widgets/my_appbar.dart';
@@ -20,7 +18,7 @@ class _cartScreenState extends State<CartScreen> {
 
   final _appBarKey = GlobalKey<MyAppBarState>();
 
-  CartScreenViewModel model = serviceLocator<CartScreenViewModel>();
+  CartScreenViewModel model = CartScreenViewModel();
 
   @override
   void initState() {
