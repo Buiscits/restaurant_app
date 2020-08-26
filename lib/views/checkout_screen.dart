@@ -21,7 +21,7 @@ class _checkoutScreenState extends State<CheckoutScreen> {
 
   var model = CheckoutScreenViewModel();
 
-  int tableNumber = 0;
+  int tableNumber;
   String name = '';
   String surname = '';
   String email = '';
@@ -93,18 +93,25 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                   Container(
                     width: halfScreenWidth,
                     child: MyTextFormField(
-                      labelText: this.name == '' ? null : this.name,
+                      labelText: this.name,
                       hintText: 'First Name',
                       isEmail: false,
                       validator: (String value) {
-                        if (value.isEmpty) {
+                        if (this.name != '') {
+                          return null;
+                        } else if (value == '') {
                           return 'Please enter your name';
+                        } else {
+                          return null;
                         }
 
                         return null;
                       },
+
                       onSaved: (String value) {
-                        this.name = value;
+                        if (value != '') {
+                          this.name = value;
+                        }
                       },
                     ),
                   ),
@@ -116,11 +123,12 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                       hintText: 'Surname Name',
                       isEmail: false,
                       validator: (String value) {
-
                         return null;
                       },
                       onSaved: (String value) {
-                        this.surname = value;
+                        if (value != '') {
+                          this.surname = value;
+                        }
                       },
                     ),
                   )
@@ -133,17 +141,23 @@ class _checkoutScreenState extends State<CheckoutScreen> {
               minLines: 1,
               isEmail: true,
               validator: (String value) {
-                if (value.isEmpty) {
+
+                if (value == '' && this.email != '') {
+                  return null;
+                } else if (value == '') {
                   return 'Please enter your email';
                 } else if (!validator.isEmail(value)) {
                   return 'Please enter a valid email';
+                } else {
+                  return null;
                 }
 
-                return null;
               },
 
               onSaved: (String value) {
-                this.email = value;
+                if (value != '') {
+                  this.email = value;
+                }
               },
             ),
 
@@ -173,8 +187,8 @@ class _checkoutScreenState extends State<CheckoutScreen> {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
 
-                      var saveuserData = SavedUserData(name: this.name, surname: this.surname, email: this.email);
-                      model.saveToDefaults(saveuserData);
+                      var saveUserData = SavedUserData(name: this.name, surname: this.surname, email: this.email);
+                      model.saveToDefaults(saveUserData);
 
                       var checkout = Checkout(customerNotes: this.customerNotes,
                           email: this.email,
