@@ -8,16 +8,17 @@ class Item {
   final int itemId;
   final double price;
   final int quantity;
+  final bool itemInCart;
 
-  Item({this.name, this.itemId, this.price, this.quantity});
+  Item({this.name, this.itemId, this.price, this.quantity, this.itemInCart});
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
       name: json['post_title'],
       itemId: json['ID'],
       price: double.parse(json['price'][0]),
-      quantity: 1);
-
-  //Map<String, dynamic> toJson() => {'post_title': name, 'ID': itemId, 'price': ['$price'], 'quantity': quantity};
+      quantity: 1,
+      itemInCart: json['item_in_cart']
+  );
 }
 
 class CategoryItems {
@@ -34,7 +35,9 @@ class CategoryItems {
               name: x['post_title'],
               itemId: x['ID'],
               price: double.parse(x['price'][0]),
-              quantity: 1))
+              quantity: 1,
+            itemInCart: x['item_in_cart']
+          ))
       )
   );
 }

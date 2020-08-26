@@ -109,6 +109,15 @@ class _categoryScreenState extends State<CategoryScreen> {
                 ),
               )
             ],
+          ),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+
+              if (item.itemInCart) Padding(padding: EdgeInsets.only(right: 15, bottom: 10), child: Text('Item in cart', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),)) else Container()
+
+            ],
           )
 
 

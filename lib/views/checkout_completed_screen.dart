@@ -39,7 +39,7 @@ class _CheckoutCompletedScreenState extends State<CheckoutCompletedScreen> {
             Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
-        title: Text('Success'),
+        title: Text('Your order'),
       ),
       
       body: FutureBuilder(
@@ -48,7 +48,6 @@ class _CheckoutCompletedScreenState extends State<CheckoutCompletedScreen> {
           if (snapshot.data is SuccessState) {
 
             CheckoutCompleted checkoutCompleted = (snapshot.data as SuccessState).value;
-
 
             return _buildCheckoutCompleted(context, checkoutCompleted);
 
