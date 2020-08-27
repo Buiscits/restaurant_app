@@ -23,6 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  backdrop: ^0.4.1
+  get_it: ^3.0.1
+  provider: ^4.0.1
   shared_preferences: ^0.5.8
   http: ^0.12.0+2
   validators: ^2.0.0+1
